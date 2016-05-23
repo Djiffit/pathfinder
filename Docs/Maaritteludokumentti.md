@@ -1,9 +1,15 @@
-T‰m‰ projekti tulee k‰sittelem‰‰n polunhakualgoritmej‰ ruutuihin pohjautuvalla kartalla. Kartta sis‰lt‰‰ ainakin seini‰, mutta myˆs mahdollisesti erilaisia ruutuja, joilla saadaan painotettu verkko. Algoritmein‰ projektissa tulee toimimaan A*, Dijkstran algoritmi ja leveyssuuntainen haku. N‰it‰ varten joudun toteuttamaan ainakin jonkin priorisoivan tietorakenteen, todenn‰kˆisesti priorisoivan keon.
+T√§m√§ projekti tulee k√§sittelem√§√§n polunhakualgoritmej√§ ruutuihin pohjautuvalla kartalla. Kartta sis√§lt√§√§ ainakin seini√§, mutta my√∂s mahdollisesti erilaisia ruutuja, joilla saadaan painotettu verkko. Algoritmein√§ projektissa tulee toimimaan A*, Dijkstran algoritmi ja leveyssuuntainen haku. N√§it√§ varten joudun toteuttamaan ainakin jonkin priorisoivan tietorakenteen, todenn√§k√∂isesti t√§ss√§ tapauksessa priorisoivan jonon. Heuristiikkana A *:ssa tulen k√§ytt√§m√§√§n Manhattan et√§isyytt√§.
 
-N‰m‰ algoritmit ovat valittu, koska ne ovat yleisesti k‰ytettyj‰ eri tilanteissa, ja niiden toteutus vaatii jonkinlaisen priorisoidun tietorakenteen.
+N√§m√§ algoritmit ovat valittu, koska niit√§ k√§ytet√§√§n yleens√§ polunvalinnan ongelmia ratkottaessa. Priorisoivan keon teen, sill√§ algoritmit vaativat ainakin jonkinlaisen priorisoivan tietorakenteen toimiakseen kunnolla.
 
-Ohjelma tulee todenn‰kˆisesti generoimaan satunnaisia karttoja, joihin k‰ytet‰‰n kaikkia algoritmeja ja vertaillaan, mink‰laisia reittej‰ ja kuinka nopeasti ne niit‰ lˆyt‰v‰t.
+Ohjelma tulee todenn√§k√∂isesti generoimaan satunnaisia karttoja, joihin k√§ytet√§√§n kaikkia algoritmeja ja vertaillaan, mink√§laisia reittej√§ ja kuinka nopeasti ne niit√§ l√∂yt√§v√§t.
 
-Tavoitteena sovellukselle on algoritmien alkuper‰iset tila- ja aikavaatimukset, eli
+Tavoitteena sovellukselle on algoritmien alkuper√§iset tilavaatimukset O(n) ja aikavaatimuksena Dijkstran pahimman tapauksen O((E-V)log V)
 
-L‰htein‰ on n‰it‰ kivoja paikkoja k‰ytetty:
+L√§hdemateriaalina k√§ytetty:
+
+http://theory.stanford.edu/~amitp/GameProgramming/AStarComparison.html
+
+https://en.wikipedia.org/wiki/A*_search_algorithm
+
+https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
