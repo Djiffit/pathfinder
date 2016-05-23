@@ -4,7 +4,7 @@ Nämä algoritmit ovat valittu, koska niitä käytetään yleensä polunvalinnan
 
 Ohjelma tulee todennäköisesti generoimaan satunnaisia karttoja, joihin käytetään kaikkia algoritmeja ja vertaillaan, minkälaisia reittejä ja kuinka nopeasti ne niitä löytävät.
 
-Tavoitteena sovellukselle on algoritmien alkuperäiset tilavaatimukset O(n) ja aikavaatimuksena Dijkstran pahimman tapauksen O((E-V)log V)
+Tavoitteena sovellukselle on algoritmien alkuperäiset tilavaatimukset O(n) ja aikavaatimuksena Dijkstran pahimman tapauksen O((E-V)log V).
 
 Lähdemateriaalina käytetty:
 
