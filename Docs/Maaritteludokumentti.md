@@ -1,0 +1,3 @@
+Alias "team_default_legion" "set teambotmanager_legion default; AddBot 1 Default_Devourer; AddBot 1 Default_MonkeyKing; AddBot 1 Default_Nymphora; AddBot 1 Default_PuppetMaster; AddBot 1 Default_Valkyrie"
+
+Alias "team_default_hellbourne" "set teambotmanager_hellbourne default; AddBot 2 TietokoneJoukkueParas_Devourer; AddBot 2 TietokoneJoukkueParas_MonkeyKing; AddBot 2 TietokoneJoukkueParas_Nymphora; AddBot 2 TietokoneJoukkueParas_PuppetMaster; AddBot 2 TietokoneJoukkueParas_Valkyrie"
