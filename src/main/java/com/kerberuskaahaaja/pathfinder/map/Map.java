@@ -25,24 +25,25 @@ public class Map {
     }
 
     /**
-     *
+     * Luo kartan
      */
     private void initializeMap() {
         Random random = new Random();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height ; j++) {
                 int luku = random.nextInt(100);
-                if (luku < 80) {
-                    tiles[j][i] = new NormalTile(i, j);
-                } else {
-                    tiles[j][i] = new WallTile(i, j);
-                }
+//                if (luku < 80) {
+//                    tiles[j][i] = new NormalTile(i, j);
+//                } else {
+//                    tiles[j][i] = new WallTile(i, j);
+//                }
+                tiles[j][i] = new NormalTile(i, j);
             }
         }
     }
 
     /**
-     *
+     * Palauttaa koordinaateissa olevan ruudun
      * @param x
      * @param y
      * @return
@@ -52,7 +53,7 @@ public class Map {
     }
 
     /**
-     *
+     * Palauttaa kaikki jonkin koordinaatin naapuriruudut
      * @param tile
      * @return
      */
@@ -66,7 +67,7 @@ public class Map {
     }
 
     /**
-     *
+     * Varmistaa että ei palauteta seiniä
      * @param neighbors
      * @return
      */
@@ -80,7 +81,7 @@ public class Map {
     }
 
     /**
-     *
+     * Estää outofbounds errorit ja lisää koordinaatit listaan
      * @param x
      * @param y
      * @return
@@ -103,7 +104,7 @@ public class Map {
     }
 
     /**
-     *
+     * Piirtää kartan
      */
     public void draw() {
         System.out.println("Map:");

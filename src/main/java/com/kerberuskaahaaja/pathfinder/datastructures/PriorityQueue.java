@@ -18,7 +18,7 @@ public class PriorityQueue {
     }
 
     /**
-     *
+     * Poistaa jonon kärjessä olevan ruudun
      * @return
      */
     public Tile poll() {
@@ -27,13 +27,13 @@ public class PriorityQueue {
         nodes[1] = nodes[tail];
         nodes[tail].setRight(reserve.getRight());
         nodes[tail].setLeft(reserve.getLeft());
-        heapify(nodes[1], 1, true);
+        treeCheck(nodes[1], 1, true);
         tail -= 1;
         return tile;
     }
 
     /**
-     *
+     * Lisää alkion jonoon ja varmistaa sen oikean paikan 
      * @param tile
      * @param priority
      */
@@ -43,12 +43,12 @@ public class PriorityQueue {
 
         if (tail > 1) {
             makeNewNodeAchild(nodes[tail]);
-            heapify(nodes[tail / 2], tail / 2, false);
+            treeCheck(nodes[tail / 2], tail / 2, false);
         }
     }
 
     /**
-     *
+     * Palauttaa jonon alkioiden lukumäärän
      * @return
      */
     public int size() {
@@ -56,7 +56,7 @@ public class PriorityQueue {
     }
 
     /**
-     *
+     * Tekee uudesta alkiosta toisen lapsen
      * @param node
      */
     private void makeNewNodeAchild(Node node) {
@@ -68,12 +68,12 @@ public class PriorityQueue {
     }
 
     /**
-     *
+     * Varmistaa että puun säännöt ovat vielä voimassa
      * @param node
      * @param index
      * @param down
      */
-    private void heapify(Node node, int index, boolean down) {
+    private void treeCheck(Node node, int index, boolean down) {
         if (node.getLeft().priority() > node.priority() && node.getRight().priority() <= node.getLeft().priority()) {
             swap(node, node.getLeft(), index*2, false, down);
         } else if (node.getRight().priority() > node.priority() && node.getRight().priority() >= node.getLeft().priority()) {
@@ -82,7 +82,7 @@ public class PriorityQueue {
     }
 
     /**
-     *
+     * Vaihtaa kahden alkion lapset
      * @param parent
      * @param child
      * @param index
@@ -98,11 +98,11 @@ public class PriorityQueue {
         updateParentOfParent(index/2, child);
         nodes[index] = parent;
         nodes[index/2] = child;
-        recursiveHeapifyCall(index/2, down);
+        recursiveTreeCheckCall(index/2, down);
     }
 
     /**
-     *
+     * Päivittää vaihdetun alkion vanhemman lapseksi oikean alkion
      * @param index
      * @param child
      */
@@ -117,26 +117,26 @@ public class PriorityQueue {
     }
 
     /**
-     *
+     * Kutsuu TreeCheckiä, kun sille on tarvetta ja varmistaa että kutsut ovat oikeaan suuntaan
      * @param index
      * @param down
      */
-    private void recursiveHeapifyCall(int index, boolean down) {
+    private void recursiveTreeCheckCall(int index, boolean down) {
         if (down) {
             if (index*2 < tail) {
-                heapify(nodes[index*2], index*2, true);
+                treeCheck(nodes[index*2], index*2, true);
             }
         } else {
             if (index > 1) {
-                heapify(nodes[index / 2], index / 2, false);
+                treeCheck(nodes[index / 2], index / 2, false);
             } else {
-                heapify(nodes[1], 1, false);
+                treeCheck(nodes[1], 1, false);
             }
         }
     }
 
     /**
-     *
+     * Varmistaa että vaihdossa vaihdetaan oikeanpuoleiseen solmuun
      * @param parent
      * @param leftnode
      * @param rightnode

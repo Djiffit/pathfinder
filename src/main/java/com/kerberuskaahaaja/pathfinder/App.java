@@ -10,9 +10,9 @@ import com.sun.glass.ui.SystemClipboard;
 public class App
 {
     public static void main( String[] args ) {
-        Map map = new Map(25, 25);
+        Map map = new Map(10, 10);
         Astar astar = new Astar(map);
-        astar.solveMap(20,20,1,1);
+        System.out.println(astar.solveMap(9,9,0,0).getLowestCost());
 
         System.out.println("lol");
 //        PriorityQueue jono = new PriorityQueue();

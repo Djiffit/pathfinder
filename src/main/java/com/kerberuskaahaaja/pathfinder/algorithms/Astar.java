@@ -12,7 +12,7 @@ public class Astar {
     private Map map;
 
     /**
-     *
+     * Astar algoritmi
      * @param map
      */
     public Astar(Map map) {
@@ -21,7 +21,7 @@ public class Astar {
     }
 
     /**
-     *
+     * Ratkaisee annetun kartan näillä lähtö ja maalikoordinaateilla
      * @param startX
      * @param startY
      * @param goalX
@@ -44,7 +44,7 @@ public class Astar {
 }
 
     /**
-     *
+     * Tarkistaa onko ruudun naapureihin kulkeva reitti paras, joka on tiedossa ja lisää jonoon
      * @param goalX
      * @param goalY
      * @param tile
@@ -63,7 +63,7 @@ public class Astar {
     }
 
     /**
-     *
+     * Lisää aloitusruudun jonoon
      * @param startX
      * @param startY
      */
@@ -74,7 +74,7 @@ public class Astar {
     }
 
     /**
-     *
+     * Laskee heuristiikan
      * @param x
      * @param y
      * @param goalX
