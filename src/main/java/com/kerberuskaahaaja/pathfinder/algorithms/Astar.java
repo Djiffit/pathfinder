@@ -31,7 +31,7 @@ public class Astar {
     public Tile solveMap(int startX, int startY, int goalX, int goalY) {
         initializationWithFirstTile(startX, startY);
         Tile tile = map.getCoordinates(startX, startY);
-        map.draw();
+//        map.draw();
         while (consideredTiles.size() > 0) {
             tile = consideredTiles.poll();
             if (tile.getX() == goalX && tile.getY() == goalY) {
@@ -39,7 +39,7 @@ public class Astar {
             }
             evaluateNeighbors(goalX, goalY, tile);
         }
-        map.draw();
+//        retracePath(map.getCoordinates(goalX, goalY), map.getCoordinates(startX, startY));
         return tile;
 }
 
@@ -56,10 +56,18 @@ public class Astar {
                 if (t.getLowestCost() > costOfPath) {
                     t.setLowestCost(costOfPath);
                     t.setCameFrom(tile);
-                    consideredTiles.enqueue(t, (costOfPath -calculateHeuristics(t.getX(), t.getY(), goalX, goalY)));
+                    consideredTiles.enqueue(t, (-costOfPath -calculateHeuristics(t.getX(), t.getY(), goalX, goalY)));
                 }
             }
         }
+    }
+
+    private void retracePath(Tile tile, Tile start) {
+        while (tile != start) {
+            tile.setPartOfPath(true);
+            tile = tile.getCameFrom();
+        }
+//        map.draw();
     }
 
     /**
@@ -83,5 +91,9 @@ public class Astar {
      */
     private int calculateHeuristics(int x, int y, int goalX, int goalY) {
         return Math.abs(x-goalX) + Math.abs(y-goalY);
+    }
+
+    public void resetMap() {
+        map.resetTiles();
     }
 }

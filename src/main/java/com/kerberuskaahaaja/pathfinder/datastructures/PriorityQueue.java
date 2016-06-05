@@ -1,5 +1,6 @@
 package com.kerberuskaahaaja.pathfinder.datastructures;
 
+import com.kerberuskaahaaja.pathfinder.tiles.NormalTile;
 import com.kerberuskaahaaja.pathfinder.tiles.Tile;
 
 /**
@@ -14,7 +15,7 @@ public class PriorityQueue {
      */
     public PriorityQueue() {
         this.tail = 0;
-        nodes = new Node[10000];
+        nodes = new Node[1000000];
     }
 
     /**
@@ -25,10 +26,20 @@ public class PriorityQueue {
         Tile tile = nodes[1].getTile();
         Node reserve = nodes[1];
         nodes[1] = nodes[tail];
-        nodes[tail].setRight(reserve.getRight());
-        nodes[tail].setLeft(reserve.getLeft());
-        treeCheck(nodes[1], 1, true);
+        if (size() > 1) {
+            if (tail % 2 == 0) {
+                nodes[tail / 2].setLeft(new Node(new NormalTile(1, 2), -900001));
+            } else {
+                nodes[tail / 2].setRight(new Node(new NormalTile(1, 2), -900001));
+            }
+        }
+        nodes[1].setRight(reserve.getRight());
+        nodes[1].setLeft(reserve.getLeft());
+        nodes[tail] = null;
         tail -= 1;
+        if (size() > 1) {
+            treeCheck(nodes[1], 1, true);
+        }
         return tile;
     }
 
@@ -44,7 +55,9 @@ public class PriorityQueue {
         if (tail > 1) {
             makeNewNodeAchild(nodes[tail]);
             treeCheck(nodes[tail / 2], tail / 2, false);
+            treeCheck(nodes[1], 1, false);
         }
+
     }
 
     /**
@@ -78,6 +91,10 @@ public class PriorityQueue {
             swap(node, node.getLeft(), index*2, false, down);
         } else if (node.getRight().priority() > node.priority() && node.getRight().priority() >= node.getLeft().priority()) {
             swap(node, node.getRight(), index*2+1, true, down);
+        } else {
+            if (index > 1 && !down) {
+                treeCheck(nodes[index/2], index/2, down);
+            }
         }
     }
 
@@ -98,7 +115,7 @@ public class PriorityQueue {
         updateParentOfParent(index/2, child);
         nodes[index] = parent;
         nodes[index/2] = child;
-        recursiveTreeCheckCall(index/2, down);
+        recursiveTreeCheckCall(index, down);
     }
 
     /**
@@ -123,8 +140,8 @@ public class PriorityQueue {
      */
     private void recursiveTreeCheckCall(int index, boolean down) {
         if (down) {
-            if (index*2 < tail) {
-                treeCheck(nodes[index*2], index*2, true);
+            if (index < tail) {
+                treeCheck(nodes[index], index, true);
             }
         } else {
             if (index > 1) {
@@ -156,13 +173,10 @@ public class PriorityQueue {
     }
 
     public String toString() {
-        System.out.println(nodes[1].priority()+" ");
-        System.out.print(nodes[2].priority()+" ");
-        System.out.println(nodes[3].priority()+" ");
-        System.out.print(nodes[4].priority()+" ");
-        System.out.print(nodes[5].priority()+" ");
-        System.out.print(nodes[6].priority()+" ");
-        System.out.print(nodes[7].priority()+" ");
+        for (int i = 1; i <= tail; i++) {
+            System.out.print(nodes[i].priority()+" ");
+        }
+        System.out.println("");
         return ("");
     }
 }

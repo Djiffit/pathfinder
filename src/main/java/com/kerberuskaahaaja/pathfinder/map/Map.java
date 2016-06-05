@@ -31,8 +31,8 @@ public class Map {
         Random random = new Random();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height ; j++) {
-                int luku = random.nextInt(100);
-//                if (luku < 80) {
+//                int luku = random.nextInt(100);
+//                if (luku < 85) {
 //                    tiles[j][i] = new NormalTile(i, j);
 //                } else {
 //                    tiles[j][i] = new WallTile(i, j);
@@ -66,6 +66,14 @@ public class Map {
         return neighbors;
     }
 
+    public void resetTiles() {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height ; j++) {
+                tiles[j][i].reset();
+            }
+        }
+    }
+
     /**
      * Varmistaa että ei palauteta seiniä
      * @param neighbors
@@ -88,19 +96,23 @@ public class Map {
      */
     private Tile[] specialCaseNeighbours(int x, int y) {
         Tile[] neighbors = new Tile[4];
-        try { neighbors[0] = getCoordinates(x+1, y);
-        } catch(Exception e) {
+        if (outOfBounds(x+1, y)) {
+            neighbors[0] = getCoordinates(x+1, y);
         }
-        try { neighbors[1] = getCoordinates(x, y+1);
-        } catch(Exception e) {
+        if (outOfBounds(x, y+1)) {
+            neighbors[1] = getCoordinates(x, y+1);
         }
-        try { neighbors[2] = getCoordinates(x-1, y);
-        } catch(Exception e) {
+        if (outOfBounds(x-1, y)) {
+            neighbors[2] = getCoordinates(x-1, y);
         }
-        try { neighbors[3] = getCoordinates(x, y-1);
-        } catch(Exception e) {
+        if (outOfBounds(x, y-1)) {
+            neighbors[3] = getCoordinates(x, y-1);
         }
         return neighbors;
+    }
+
+    private boolean outOfBounds(int i, int y) {
+        return (i < width && i >= 0 && y >= 0 && y < height);
     }
 
     /**
