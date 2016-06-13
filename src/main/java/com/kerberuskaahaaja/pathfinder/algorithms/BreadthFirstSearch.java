@@ -9,12 +9,15 @@ import com.kerberuskaahaaja.pathfinder.tiles.Tile;
 public class BreadthFirstSearch {
     private Queue consideredTiles;
     private Map map;
+    private long time;
+    private int length = 0;
 
     /**
      * Leveyssuuntainen haku
      * @param map
      */
     public BreadthFirstSearch(Map map) {
+        this.time = 0;
         this.map = map;
         this.consideredTiles = new Queue();
     }
@@ -29,6 +32,9 @@ public class BreadthFirstSearch {
      * @return
      */
     public Tile solveMap(int startX, int startY, int goalX, int goalY) {
+        map.getCoordinates(startX, startY).setStart(true);
+        map.getCoordinates(goalX, goalY).setGoal(true);
+        time = System.currentTimeMillis();
 //        map.draw();
         Tile tile = map.getCoordinates(startX, startY);
         tile.setLowestCost(0);
@@ -40,7 +46,8 @@ public class BreadthFirstSearch {
             }
             evaluateNeighbors(tile);
         }
-//        retracePath(map.getCoordinates(goalX, goalY), map.getCoordinates(startX, startY));
+        time = Math.abs(time - System.currentTimeMillis());
+        retracePath(map.getCoordinates(goalX, goalY), map.getCoordinates(startX, startY));
         return map.getCoordinates(goalX, goalY);
     }
 
@@ -68,11 +75,18 @@ public class BreadthFirstSearch {
 
     private void retracePath(Tile tile, Tile start) {
 //        map.draw();
+        length = 0;
         while (tile != start) {
+            length++;
             tile.setPartOfPath(true);
             tile = tile.getCameFrom();
         }
 //        map.draw();
+    }
+
+    public String toString() {
+        System.out.println(Math.abs(time));
+        return time+" ms, length of path "+ length;
     }
 
     /**

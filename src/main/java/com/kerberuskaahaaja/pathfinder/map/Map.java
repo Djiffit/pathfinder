@@ -11,6 +11,8 @@ public class Map {
     private Tile[][] tiles;
     private int width;
     private int height;
+    private Tile start;
+    private Tile goal;
 
     /**
      *
@@ -24,21 +26,66 @@ public class Map {
         initializeMap();
     }
 
+    public Tile getStart() {
+        return start;
+    }
+
+    public void setStart(Tile start) {
+        this.start = start;
+    }
+
+    public Tile getGoal() {
+        return goal;
+    }
+
+    public void setGoal(Tile goal) {
+        this.goal = goal;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     /**
      * Luo kartan
      */
-    private void initializeMap() {
+    public void initializeMap() {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height ; j++) {
+                tiles[j][i] = new NormalTile(i, j);
+            }
+        }
+        this.start = tiles[0][0];
+        this.goal = tiles[height-1][width-1];
+        if (start.isWall()) {
+            start.toggleWall();
+        }
+        if (goal.isWall()) {
+            goal.toggleWall();
+        }
+    }
+
+    public void randomize() {
         Random random = new Random();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height ; j++) {
-//                int luku = random.nextInt(100);
-//                if (luku < 85) {
-//                    tiles[j][i] = new NormalTile(i, j);
-//                } else {
-//                    tiles[j][i] = new WallTile(i, j);
-//                }
-                tiles[j][i] = new NormalTile(i, j);
+                int luku = random.nextInt(100);
+                if (luku < 83) {
+                    tiles[j][i] = new NormalTile(i, j);
+                } else {
+                    tiles[j][i] = new WallTile(i, j);
+                }
             }
+        }
+        if (start.isWall()) {
+            start.toggleWall();
+        }
+        if (goal.isWall()) {
+            goal.toggleWall();
         }
     }
 
@@ -69,7 +116,11 @@ public class Map {
     public void resetTiles() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height ; j++) {
-                tiles[j][i].reset();
+                if (tiles[j][i].isWall()) {
+                    tiles[j][i] = new WallTile(i, j);
+                } else {
+                    tiles[j][i] = new NormalTile(i, j);
+                }
             }
         }
     }

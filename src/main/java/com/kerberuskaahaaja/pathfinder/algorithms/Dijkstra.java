@@ -8,12 +8,15 @@ import com.kerberuskaahaaja.pathfinder.tiles.Tile;
 public class Dijkstra {
     private PriorityQueue consideredTiles;
     private Map map;
+    private int length = 0;
+    private long time;
 
     /**
      * Dijkstra
      * @param map
      */
     public Dijkstra(Map map) {
+        this.time = 0;
         this.map = map;
         this.consideredTiles = new PriorityQueue();
     }
@@ -28,6 +31,9 @@ public class Dijkstra {
      */
 
     public Tile solveMap(int startX, int startY, int goalX, int goalY) {
+        map.getCoordinates(startX, startY).setStart(true);
+        map.getCoordinates(goalX, goalY).setGoal(true);
+        time = System.currentTimeMillis();
         Tile tile = initializeWithFirstNode(startX, startY);
         while (consideredTiles.size() > 0) {
             tile = consideredTiles.poll();
@@ -37,7 +43,8 @@ public class Dijkstra {
             }
             evaluateNeighbors(tile);
         }
-//        retracePath(map.getCoordinates(goalX, goalY), map.getCoordinates(startX, startY));
+        time = Math.abs(time - System.currentTimeMillis());
+        retracePath(map.getCoordinates(goalX, goalY), map.getCoordinates(startX, startY));
         return map.getCoordinates(goalX, goalY);
     }
 
@@ -48,8 +55,10 @@ public class Dijkstra {
      */
 
     private void retracePath(Tile tile, Tile start) {
+        length = 0;
         while (tile != start) {
             tile.setPartOfPath(true);
+            length++;
             tile = tile.getCameFrom();
         }
     }
@@ -84,6 +93,10 @@ public class Dijkstra {
         firstTile.setLowestCost(0);
         consideredTiles.enqueue(firstTile, 0);
         return firstTile;
+    }
+
+    public String toString() {
+        return time+" ms, length of path "+ length;
     }
 
     public void resetMap() {

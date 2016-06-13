@@ -9,14 +9,45 @@ public abstract class Tile {
     private int lowestCost;
     private boolean partOfPath;
     private String toString;
+    private boolean start;
+    private boolean wall;
+
+
+
+    private boolean goal;
 
     public Tile(int x, int y) {
+        this.wall = false;
         this.cost = 1;
         this.x = x;
         this.y = y;
         this.lowestCost = Integer.MAX_VALUE;
         this.cameFrom = null;
         this.partOfPath = false;
+        this.start = false;
+        this.goal = false;
+    }
+
+
+
+    public void toggleWall() {
+        this.wall = !this.wall;
+    }
+
+    public boolean isGoal() {
+        return goal;
+    }
+
+    public void setGoal(boolean goal) {
+        this.goal = goal;
+    }
+
+    public boolean isStart() {
+        return start;
+    }
+
+    public void setStart(boolean start) {
+        this.start = start;
     }
 
     public boolean isPartOfPath() {
@@ -39,7 +70,7 @@ public abstract class Tile {
         this.cost = cost;
     }
 
-    public boolean isWall() {return false;}
+    public boolean isWall() {return this.wall;}
 
     public Tile getCameFrom() {
         return cameFrom;

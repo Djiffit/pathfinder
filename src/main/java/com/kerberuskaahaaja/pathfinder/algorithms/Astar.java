@@ -3,19 +3,25 @@ package com.kerberuskaahaaja.pathfinder.algorithms;
 import com.kerberuskaahaaja.pathfinder.datastructures.PriorityQueue;
 import com.kerberuskaahaaja.pathfinder.map.Map;
 import com.kerberuskaahaaja.pathfinder.tiles.Tile;
+import com.kerberuskaahaaja.pathfinder.ui.MapRender;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  *
  */
 public class Astar {
     private PriorityQueue consideredTiles;
+    private long time;
     private Map map;
+    private int length = 0;
 
     /**
      * Astar algoritmi
      * @param map
      */
     public Astar(Map map) {
+        this.time = 0;
         this.map = map;
         this.consideredTiles = new PriorityQueue();
     }
@@ -29,6 +35,9 @@ public class Astar {
      * @return
      */
     public Tile solveMap(int startX, int startY, int goalX, int goalY) {
+        map.getCoordinates(startX, startY).setStart(true);
+        map.getCoordinates(goalX, goalY).setGoal(true);
+        time = System.currentTimeMillis();
         initializationWithFirstTile(startX, startY);
         Tile tile = map.getCoordinates(startX, startY);
 //        map.draw();
@@ -39,10 +48,18 @@ public class Astar {
             }
             evaluateNeighbors(goalX, goalY, tile);
         }
-//        retracePath(map.getCoordinates(goalX, goalY), map.getCoordinates(startX, startY));
+        time = Math.abs(time - System.currentTimeMillis());
+        retracePath(map.getCoordinates(goalX, goalY), map.getCoordinates(startX, startY));
         return tile;
 }
 
+    public void setMap(Map map) {
+        this.map = map;
+    }
+
+    public Map getMap() {
+        return map;
+    }
     /**
      * Tarkistaa onko ruudun naapureihin kulkeva reitti paras, joka on tiedossa ja lisää jonoon
      * @param goalX
@@ -56,14 +73,16 @@ public class Astar {
                 if (t.getLowestCost() > costOfPath) {
                     t.setLowestCost(costOfPath);
                     t.setCameFrom(tile);
-                    consideredTiles.enqueue(t, (-costOfPath -calculateHeuristics(t.getX(), t.getY(), goalX, goalY)));
+                    consideredTiles.enqueue(t, (-costOfPath - calculateHeuristics(t.getX(), t.getY(), goalX, goalY)));
                 }
             }
         }
     }
 
     private void retracePath(Tile tile, Tile start) {
+        length = 0;
         while (tile != start) {
+            length++;
             tile.setPartOfPath(true);
             tile = tile.getCameFrom();
         }
@@ -90,7 +109,12 @@ public class Astar {
      * @return
      */
     private int calculateHeuristics(int x, int y, int goalX, int goalY) {
-        return Math.abs(x-goalX) + Math.abs(y-goalY);
+        return Math.abs(goalX-x) + Math.abs(goalY-y);
+    }
+
+    public String toString() {
+        System.out.println(Math.abs(time)+ map.getGoal().getLowestCost()+ "   "+length);
+        return time+" ms, length of path "+ length;
     }
 
     public void resetMap() {
