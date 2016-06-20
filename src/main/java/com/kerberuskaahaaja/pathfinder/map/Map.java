@@ -31,7 +31,9 @@ public class Map {
     }
 
     public void setStart(Tile start) {
+        this.start.setStart(false);
         this.start = start;
+        this.start.setStart(true);
     }
 
     public Tile getGoal() {
@@ -39,7 +41,9 @@ public class Map {
     }
 
     public void setGoal(Tile goal) {
+        this.goal.setGoal(false);
         this.goal = goal;
+        this.goal.setGoal(true);
     }
 
     public int getWidth() {

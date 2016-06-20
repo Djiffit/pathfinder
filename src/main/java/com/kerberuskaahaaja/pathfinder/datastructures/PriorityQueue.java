@@ -15,7 +15,7 @@ public class PriorityQueue {
      */
     public PriorityQueue() {
         this.tail = 0;
-        nodes = new Node[1000000];
+        nodes = new Node[3000000];
     }
 
     /**

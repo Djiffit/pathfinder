@@ -113,7 +113,7 @@ public class Astar {
     }
 
     public String toString() {
-        System.out.println(Math.abs(time)+ map.getGoal().getLowestCost()+ "   "+length);
+        System.out.println(Math.abs(time) + " " + length);
         return time+" ms, length of path "+ length;
     }
 

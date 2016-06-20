@@ -38,7 +38,6 @@ public class Dijkstra {
         while (consideredTiles.size() > 0) {
             tile = consideredTiles.poll();
             if (tile.getX() == goalX && tile.getY() == goalY) {
-                System.out.println("hmhmhm");
                 break;
             }
             evaluateNeighbors(tile);
@@ -96,6 +95,9 @@ public class Dijkstra {
     }
 
     public String toString() {
+
+        System.out.println(Math.abs(time) + " " + length);
+
         return time+" ms, length of path "+ length;
     }
 

@@ -150,9 +150,5 @@ public class PriorityQueueTest {
         assertEquals(0, priority.size());
     }
 
-    @Test
-    public void pollingEmptyResultsInError() throws Exception {
-        assertEquals(0, priority.poll());
-    }
 
 }

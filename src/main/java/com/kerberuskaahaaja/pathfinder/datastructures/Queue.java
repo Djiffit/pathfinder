@@ -9,7 +9,7 @@ public class Queue {
     private Tile[] queue;
 
     public Queue() {
-        queue = new Tile[10000000];
+        queue = new Tile[50000000];
         tail = 0;
         head = 0;
     }

@@ -10,6 +10,8 @@ import java.awt.event.MouseListener;
 
 public class MouseFunctionality extends MouseAdapter {
 
+
+
     private Map map;
     private MapRender maprender;
     private boolean unlockedStartPoint;
@@ -24,7 +26,13 @@ public class MouseFunctionality extends MouseAdapter {
         tile = new NormalTile(-1,-5);
     }
 
+    public Map getMap() {
+        return map;
+    }
 
+    public void setMap(Map map) {
+        this.map = map;
+    }
     @Override
     public void mouseClicked(MouseEvent e) {
         Tile toggle = maprender.getPosition(e);
@@ -37,9 +45,9 @@ public class MouseFunctionality extends MouseAdapter {
     public void mousePressed(MouseEvent e) {
         Tile toggle = maprender.getPosition(e);
         if (toggle != null) {
-            if (toggle.equals(map.getStart())) {
+            if (toggle.getX() == (map.getStart().getX()) && toggle.getY() == map.getStart().getY()) {
                 unlockedStartPoint = true;
-            } else if (toggle.equals(map.getGoal())) {
+            } else if (toggle.getX() == (map.getGoal().getX()) && toggle.getY() == map.getGoal().getY())  {
                 unlockedEndPoint = true;
             }
         }
@@ -49,8 +57,9 @@ public class MouseFunctionality extends MouseAdapter {
     public void mouseDragged(MouseEvent e) {
         Tile toggle = maprender.getPosition(e);
         if (toggle != null) {
+            System.out.println(unlockedEndPoint + " " + unlockedStartPoint);
             if (!unlockedStartPoint && !unlockedEndPoint) {
-                if (!tile.equals(toggle)) {
+                if (tile != toggle) {
                     tile = toggle;
                     tile.toggleWall();
                 }
@@ -68,8 +77,10 @@ public class MouseFunctionality extends MouseAdapter {
         Tile toggle = maprender.getPosition(e);
         if (toggle != null) {
             if (unlockedStartPoint) {
-                unlockedEndPoint = false;
+                map.setStart(toggle);
+                unlockedStartPoint = false;
             } else if (unlockedEndPoint) {
+                map.setGoal(toggle);
                 unlockedEndPoint = false;
             }
         }

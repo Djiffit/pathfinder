@@ -11,7 +11,7 @@ public class MapRender extends JPanel {
 
 
     private Map map;
-    private int squareSize = 2;
+    private int squareSize = 4;
 
     public void setMap(Map map) {
         this.map = map;
@@ -53,9 +53,6 @@ public class MapRender extends JPanel {
         super.paintComponent(graphics);
         graphics.setColor(new Color(30, 30, 30));
         graphics.fillRect(0, 0, map.getWidth()*squareSize, map.getHeight()*squareSize);
-//        if (path != null) {
-//            //draw path
-//        }
         for (int i = 0; i < map.getWidth(); i++) {
             for (int j = 0; j < map.getHeight(); j++) {
                 Tile tile = map.getCoordinates(i, j);

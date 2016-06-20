@@ -39,7 +39,7 @@ public class Node {
 
     private void createEmptyNodes() {
         if (priority() >= -9000) {
-            Tile faketile = new NormalTile(1,2);
+            Tile faketile = new NormalTile(999,999);
             this.left = new Node(faketile, -900001);
             this.right = new Node(faketile,-900001);
         }

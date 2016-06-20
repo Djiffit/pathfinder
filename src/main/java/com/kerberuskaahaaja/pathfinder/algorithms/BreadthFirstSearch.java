@@ -85,7 +85,7 @@ public class BreadthFirstSearch {
     }
 
     public String toString() {
-        System.out.println(Math.abs(time));
+        System.out.println(Math.abs(time) + " " + length);
         return time+" ms, length of path "+ length;
     }
 
