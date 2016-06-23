@@ -43,15 +43,13 @@ public class MapRender extends JPanel {
     protected Tile getPosition(MouseEvent e) {
         int x = ((e.getX()) / squareSize);
         int y = (e.getY()) / squareSize;
-        System.out.println(e.getX()+" "+x);
-        System.out.println(e.getY()+" "+y);
         return map.getCoordinates(x, y);
     }
 
     @Override
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
-        graphics.setColor(new Color(30, 30, 30));
+        graphics.setColor(new Color(33, 33, 33));
         graphics.fillRect(0, 0, map.getWidth()*squareSize, map.getHeight()*squareSize);
         for (int i = 0; i < map.getWidth(); i++) {
             for (int j = 0; j < map.getHeight(); j++) {

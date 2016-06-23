@@ -57,7 +57,6 @@ public class MouseFunctionality extends MouseAdapter {
     public void mouseDragged(MouseEvent e) {
         Tile toggle = maprender.getPosition(e);
         if (toggle != null) {
-            System.out.println(unlockedEndPoint + " " + unlockedStartPoint);
             if (!unlockedStartPoint && !unlockedEndPoint) {
                 if (tile != toggle) {
                     tile = toggle;

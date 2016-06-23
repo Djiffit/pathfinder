@@ -18,7 +18,7 @@ public class UserInterface implements Runnable {
 
     @Override
     public void run() {
-        map = new Map(350, 166);
+        map = new Map(50, 150);
 
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,7 +41,7 @@ public class UserInterface implements Runnable {
         createMapSizeButtons(setup, mapRender);
 
         createMapEditButtons(setup, mapRender);
-        
+
         frame.add(setup, BorderLayout.PAGE_START);
         frame.add(time, BorderLayout.LINE_START);
         frame.add(mapRender, BorderLayout.SOUTH);
