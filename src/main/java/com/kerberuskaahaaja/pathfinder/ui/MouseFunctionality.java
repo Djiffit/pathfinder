@@ -8,6 +8,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * Käyttöliittymän vaatimien hiiritoimintojen havainnointi
+ */
 public class MouseFunctionality extends MouseAdapter {
 
 
@@ -18,6 +21,13 @@ public class MouseFunctionality extends MouseAdapter {
     private boolean unlockedEndPoint;
     private Tile tile;
 
+
+    /**
+     * Alustaa lähdön ja maalin lukkiutumisen sekä luo ruudun, johon voidaan vertailla kun katsotaan mikä ruutu oli viimeksi käsittelyssä
+     * @param maprender Käyttöliittymä, jonka kautta saadaan ruutu, jota ollaan klikattu
+     * @param map Kartta, jotta voidaan muokata siinä olevia ruutuja
+     */
+
     public MouseFunctionality(MapRender maprender, Map map) {
         this.map = map;
         this.maprender = maprender;
@@ -26,13 +36,28 @@ public class MouseFunctionality extends MouseAdapter {
         tile = new NormalTile(-1,-5);
     }
 
+    /**
+     *
+     * @return Palauttaa kartan
+     */
+
     public Map getMap() {
         return map;
     }
 
+    /**
+     * Asettaa kartan
+     * @param map kartta
+     */
+
     public void setMap(Map map) {
         this.map = map;
     }
+
+    /**
+     * Määrittelee mitä tapahtuu kun klikataan hiirtä eli muutetaan seinän status
+     * @param e tiedot klikkauksesta
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         Tile toggle = maprender.getPosition(e);
@@ -40,6 +65,10 @@ public class MouseFunctionality extends MouseAdapter {
         maprender.repaint();
     }
 
+    /**
+     * Toiminnallisuus hiiren painamiselle, mutta ei vapauttamiselle eli siirretään maalipisteitä
+     * @param e tietoja toiminnasta
+     */
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -52,6 +81,11 @@ public class MouseFunctionality extends MouseAdapter {
             }
         }
     }
+
+    /**
+     * Toiminnallisuus hiiren siirtelylle, kun painiketta pidetään pohjassa, eli siirretään maalia tai muutetaan ruutu jonka päällä ollaan seinäksi tai pois seinästä
+     * @param e tietoa
+     */
 
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -71,6 +105,11 @@ public class MouseFunctionality extends MouseAdapter {
         maprender.repaint();
     }
 
+    /**
+     * Vapautetaan hiiiri, ja vapautetaan lukitus maalista ja lähdöstä jos ne oli lukittuina
+     * @param e tieto
+     */
+
     @Override
     public void mouseReleased(MouseEvent e) {
         Tile toggle = maprender.getPosition(e);
@@ -88,11 +127,9 @@ public class MouseFunctionality extends MouseAdapter {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
     }
 }

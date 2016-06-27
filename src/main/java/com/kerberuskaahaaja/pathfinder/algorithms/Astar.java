@@ -8,7 +8,7 @@ import com.kerberuskaahaaja.pathfinder.ui.MapRender;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ * Astaar
  */
 public class Astar {
     private PriorityQueue consideredTiles;
@@ -17,8 +17,8 @@ public class Astar {
     private int length = 0;
 
     /**
-     * Astar algoritmi
-     * @param map
+     * Astar algoritmin konstruktori
+     * @param map kartta jota ratkotaan
      */
     public Astar(Map map) {
         this.time = 0;
@@ -28,11 +28,11 @@ public class Astar {
 
     /**
      * Ratkaisee annetun kartan näillä lähtö ja maalikoordinaateilla
-     * @param startX
-     * @param startY
-     * @param goalX
-     * @param goalY
-     * @return
+     * @param startX alkux
+     * @param startY alkuy
+     * @param goalX maalix
+     * @param goalY maaliy
+     * @return ruutu josta saadaan reitti
      */
     public Tile solveMap(int startX, int startY, int goalX, int goalY) {
         map.getCoordinates(startX, startY).setStart(true);
@@ -40,11 +40,10 @@ public class Astar {
         time = System.currentTimeMillis();
         initializationWithFirstTile(startX, startY);
         Tile tile = map.getCoordinates(startX, startY);
-//        map.draw();
-        while (consideredTiles.size() > 0) {
+        while (consideredTiles.size() > 0) {// Käy läpi solmuja, kunnes jono on tyhjä, jolloin ei ole olemassa polkua
             tile = consideredTiles.poll();
             if (tile.getX() == goalX && tile.getY() == goalY) {
-                break;
+                break; // Jos reitti on löydetty
             }
             evaluateNeighbors(goalX, goalY, tile);
         }
@@ -62,9 +61,9 @@ public class Astar {
     }
     /**
      * Tarkistaa onko ruudun naapureihin kulkeva reitti paras, joka on tiedossa ja lisää jonoon
-     * @param goalX
-     * @param goalY
-     * @param tile
+     * @param goalX maalix
+     * @param goalY maaliy
+     * @param tile ruutu
      */
     private void evaluateNeighbors(int goalX, int goalY, Tile tile) {
         for (Tile t: map.getNeighbors(tile)) {
@@ -79,6 +78,11 @@ public class Astar {
         }
     }
 
+    /**
+     * Kulkee polun jolla päästään maaliin
+     * @param tile ruutu
+     * @param start alkuruutu
+     */
     private void retracePath(Tile tile, Tile start) {
         length = 0;
         while (tile != start) {
@@ -86,13 +90,12 @@ public class Astar {
             tile.setPartOfPath(true);
             tile = tile.getCameFrom();
         }
-//        map.draw();
     }
 
     /**
      * Lisää aloitusruudun jonoon
-     * @param startX
-     * @param startY
+     * @param startX alkux
+     * @param startY alkuy
      */
     private void initializationWithFirstTile(int startX, int startY) {
         Tile tile = map.getCoordinates(startX, startY);
@@ -102,21 +105,28 @@ public class Astar {
 
     /**
      * Laskee heuristiikan
-     * @param x
-     * @param y
-     * @param goalX
-     * @param goalY
-     * @return
+     * @param x x
+     * @param y y
+     * @param goalX maalix
+     * @param goalY maaliy
+     * @return arvo
      */
     private int calculateHeuristics(int x, int y, int goalX, int goalY) {
         return Math.abs(goalX-x) + Math.abs(goalY-y);
     }
 
+    /**
+     * Kertoo ajan ja matkan
+     * @return aika ja matka
+     */
     public String toString() {
         System.out.println(Math.abs(time) + " " + length);
-        return time+" ms, length of path "+ length;
+        return time+" ms, length of path "+ length + " height: " + map.getHeight() + " width: " +map.getWidth();
     }
 
+    /**
+     * Resetoi kartan kaikki ruudut
+     */
     public void resetMap() {
         map.resetTiles();
     }

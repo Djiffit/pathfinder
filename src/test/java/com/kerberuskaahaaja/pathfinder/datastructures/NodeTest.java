@@ -14,8 +14,8 @@ public class NodeTest {
 
     @Test
     public void newNodeHasDummyNodesAsLeftAndRight() throws Exception {
-        assertEquals(-900001, node.getLeft().priority());
-        assertEquals(-900001, node.getRight().priority());
+        assertEquals(Integer.MIN_VALUE, node.getLeft().priority());
+        assertEquals(Integer.MIN_VALUE, node.getRight().priority());
     }
 
     @Test

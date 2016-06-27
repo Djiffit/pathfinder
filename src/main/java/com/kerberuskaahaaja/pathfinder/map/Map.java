@@ -5,7 +5,7 @@ import com.kerberuskaahaaja.pathfinder.tiles.*;
 import java.util.Random;
 
 /**
- *
+ * Kartta
  */
 public class Map {
     private Tile[][] tiles;
@@ -15,9 +15,9 @@ public class Map {
     private Tile goal;
 
     /**
-     *
-     * @param width
-     * @param height
+     * Kartan konstruktori, luo halutunkokoisen kartan
+     * @param width levey s
+     * @param height korkeus
      */
     public Map(int width, int height) {
         this.width = width;
@@ -26,36 +26,61 @@ public class Map {
         initializeMap();
     }
 
+    /**
+     * Palauta alkuruutu
+     * @return ruutu
+     */
+
     public Tile getStart() {
         return start;
     }
 
+    /**
+     * Aseta alkuruutu
+     * @param start ruutu
+     */
     public void setStart(Tile start) {
         this.start.setStart(false);
         this.start = start;
         this.start.setStart(true);
     }
 
+    /**
+     * Palauta maali
+     * @return maali
+     */
     public Tile getGoal() {
         return goal;
     }
 
+    /**
+     * Aseta maali
+     * @param goal maali
+      */
     public void setGoal(Tile goal) {
         this.goal.setGoal(false);
         this.goal = goal;
         this.goal.setGoal(true);
     }
 
+    /**
+     * Palauta leveys
+     * @return Leveys
+     */
     public int getWidth() {
         return width;
     }
 
+    /**
+     * Palauta korkeus
+     * @return korkeus
+     */
     public int getHeight() {
         return height;
     }
 
     /**
-     * Luo kartan
+     * Luo kartan jossa ei ole seiniä
      */
     public void initializeMap() {
         for (int i = 0; i < width; i++) {
@@ -73,6 +98,9 @@ public class Map {
         }
     }
 
+    /**
+     * Luo karttaan 17% koko kartasta seiniä
+     */
     public void randomize() {
         Random random = new Random();
         for (int i = 0; i < width; i++) {
@@ -95,9 +123,9 @@ public class Map {
 
     /**
      * Palauttaa koordinaateissa olevan ruudun
-     * @param x
-     * @param y
-     * @return
+     * @param x x koord
+     * @param y y koord
+     * @return ruutu
      */
     public Tile getCoordinates(int x, int y) {
         return tiles[y][x];
@@ -105,8 +133,8 @@ public class Map {
 
     /**
      * Palauttaa kaikki jonkin koordinaatin naapuriruudut
-     * @param tile
-     * @return
+     * @param tile ruutu
+     * @return lista naapureista
      */
     public Tile[] getNeighbors(Tile tile) {
         Tile[] neighbors = new Tile[3];
@@ -117,6 +145,9 @@ public class Map {
         return neighbors;
     }
 
+    /**
+     * Resetoi kaikki ruudut jotka kuuluvat karttaan
+     */
     public void resetTiles() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height ; j++) {
@@ -131,8 +162,8 @@ public class Map {
 
     /**
      * Varmistaa että ei palauteta seiniä
-     * @param neighbors
-     * @return
+     * @param neighbors ruudut jotka tarkistetaan
+     * @return Lista korjatuista ruuduista
      */
     private Tile[] checkForWalls(Tile[] neighbors) {
         for (int i = 0; i < 4; i++) {
@@ -145,9 +176,9 @@ public class Map {
 
     /**
      * Estää outofbounds errorit ja lisää koordinaatit listaan
-     * @param x
-     * @param y
-     * @return
+     * @param x x
+     * @param y y
+     * @return taulukko ruuduista
      */
     private Tile[] specialCaseNeighbours(int x, int y) {
         Tile[] neighbors = new Tile[4];
@@ -166,6 +197,12 @@ public class Map {
         return neighbors;
     }
 
+    /**
+     * Tarkistaa ollaanko ulkona
+     * @param i x koord
+     * @param y y koord
+     * @return ollaanko ulkona
+     */
     private boolean outOfBounds(int i, int y) {
         return (i < width && i >= 0 && y >= 0 && y < height);
     }

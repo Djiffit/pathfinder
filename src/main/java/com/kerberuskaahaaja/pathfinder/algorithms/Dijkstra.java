@@ -98,9 +98,12 @@ public class Dijkstra {
 
         System.out.println(Math.abs(time) + " " + length);
 
-        return time+" ms, length of path "+ length;
+        return time+" ms, length of path "+ length+ " height: " + map.getHeight() + " width: " +map.getWidth();
     }
 
+    /**
+     * Resetoi kartan kaikki ruudut
+     */
     public void resetMap() {
         map.resetTiles();
     }

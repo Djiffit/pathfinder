@@ -11,14 +11,20 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseListener;
 
+/**
+ * Käyttöliittymäluokka, huolehtii käyttöliittymän päivittymisestä ja luonnista
+ */
 public class UserInterface implements Runnable {
     private JFrame frame;
     private Map map;
     private MouseFunctionality mouse;
 
+    /**
+     * Käynnistää käyttöliittymän ja alustaa kaikki sen komponentit
+     */
     @Override
     public void run() {
-        map = new Map(50, 150);
+        map = new Map(900, 300);
 
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +56,12 @@ public class UserInterface implements Runnable {
         frame.setVisible(true);
     }
 
+    /**
+     * Luo kartan seinä ja tuhoamisnapit
+     * @param setup
+     * @param mapRender
+     */
+
     private void createMapEditButtons(JPanel setup, MapRender mapRender) {
         JButton random = new JButton("Random walls");
         random.addActionListener(ae -> {
@@ -65,6 +77,12 @@ public class UserInterface implements Runnable {
         });
         setup.add(empty);
     }
+
+    /**
+     *  Muuttaa ruutujen kokoa
+     * @param setup
+     * @param mapRender
+     */
 
     private void createSquareSizeButtons(JPanel setup, MapRender mapRender) {
         JButton enlargen = new JButton("+");
@@ -82,6 +100,12 @@ public class UserInterface implements Runnable {
         });
         setup.add(shrink);
     }
+
+    /**
+     * Muuttaa ruutujen määrää
+     * @param setup
+     * @param mapRender
+     */
 
     private void createMapSizeButtons(JPanel setup, MapRender mapRender) {
         JButton increasewidth = new JButton("width+");
@@ -121,6 +145,14 @@ public class UserInterface implements Runnable {
         setup.add(decreaseheight);
     }
 
+    /**
+     * Lisää algoritminapit
+     * @param setup
+     * @param result
+     * @param time
+     * @param mapRender
+     */
+
     private void createAlgorithmButtons(JPanel setup, JPanel result, JLabel time, MapRender mapRender) {
         JButton djk = new JButton("Run Dijkstra");
         djk.addActionListener(ae -> {
@@ -156,6 +188,12 @@ public class UserInterface implements Runnable {
         });
         setup.add(breadthB);
     }
+
+    /**
+     * Lisää maalin ja lähdön karttaan
+     * @param width
+     * @param change
+     */
 
     private void addStartAndGoal(boolean width, int change) {
         Tile start = map.getStart();

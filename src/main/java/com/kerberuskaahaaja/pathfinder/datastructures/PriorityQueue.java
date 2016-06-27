@@ -4,29 +4,31 @@ import com.kerberuskaahaaja.pathfinder.tiles.NormalTile;
 import com.kerberuskaahaaja.pathfinder.tiles.Tile;
 
 /**
- *
+ * Priorisoiva jono
  */
 public class PriorityQueue {
     private Node[] nodes;
     private int tail;
+    private int size;
 
     /**
-     *
+     * Konstruktori alustaa 10 kokoisen jonon
      */
     public PriorityQueue() {
         this.tail = 0;
-        nodes = new Node[3000000];
+        this.size = 10;
+        nodes = new Node[size];
     }
 
     /**
-     * Poistaa jonon kärjessä olevan ruudun
+     * Poistaa jonon kärjessä olevan ruudun ja asettaa viimeisen solmun kärkeen, jonka jälkeen alkaa treecheck kunnes puu on jälleen järjestyksessä
      * @return
      */
     public Tile poll() {
         Tile tile = nodes[1].getTile();
         Node reserve = nodes[1];
         nodes[1] = nodes[tail];
-        if (size() > 1) {
+        if (size() > 1) { //Aseta siirretyn solmun vanhemman lapsi paikanpitäjiksi
             if (tail % 2 == 0) {
                 nodes[tail / 2].setLeft(new Node(new NormalTile(1, 2), -900001));
             } else {
@@ -44,12 +46,18 @@ public class PriorityQueue {
     }
 
     /**
-     * Lisää alkion jonoon ja varmistaa sen oikean paikan 
+     * Lisää alkion jonoon ja varmistaa sen oikean paikan
+     * Varmistaa myös, että jonossa on tilaa, ja tarpeen vaatiessa luo uuden jonon kokonaan, jonka koko on kaksinkertainen
      * @param tile
      * @param priority
      */
     public void enqueue(Tile tile, int priority) {
         tail += 1;
+        if (tail+2 == size) {
+            this.size = size*2;
+            Node[] newnodes = new Node[size*2];
+            copyArray(newnodes);
+        }
         nodes[tail] = new Node(tile, priority);
 
         if (tail > 1) {
@@ -61,8 +69,19 @@ public class PriorityQueue {
     }
 
     /**
+     * Kopioi alkiot uuteen tualukkoon
+     * @param newnodes uusi taulukko
+     */
+    private void copyArray(Node[] newnodes) {
+        for (int i = 1; i <= tail ; i++) {
+            newnodes[i] = nodes[i];
+        }
+        this.nodes = newnodes;
+    }
+
+    /**
      * Palauttaa jonon alkioiden lukumäärän
-     * @return
+     * @return määrä
      */
     public int size() {
         return tail;
@@ -70,7 +89,7 @@ public class PriorityQueue {
 
     /**
      * Tekee uudesta alkiosta toisen lapsen
-     * @param node
+     * @param node lapsi
      */
     private void makeNewNodeAchild(Node node) {
         if (tail%2 == 0) {
@@ -82,9 +101,9 @@ public class PriorityQueue {
 
     /**
      * Varmistaa että puun säännöt ovat vielä voimassa
-     * @param node
-     * @param index
-     * @param down
+     * @param node haluttu solmu
+     * @param index mikä sen indeksi
+     * @param down mennäänkö alaspäin
      */
     private void treeCheck(Node node, int index, boolean down) {
         if (node.getLeft().priority() > node.priority() && node.getRight().priority() <= node.getLeft().priority()) {
@@ -100,11 +119,11 @@ public class PriorityQueue {
 
     /**
      * Vaihtaa kahden alkion lapset
-     * @param parent
-     * @param child
-     * @param index
-     * @param right
-     * @param down
+     * @param parent vanhempi
+     * @param child lapsi
+     * @param index indeksi
+     * @param right oikealapsi vai vasen
+     * @param down mennäänkö alaspäin
      */
     private void swap(Node parent, Node child, int index, boolean right, boolean down) {
         Node leftnode = parent.getLeft();
@@ -120,8 +139,8 @@ public class PriorityQueue {
 
     /**
      * Päivittää vaihdetun alkion vanhemman lapseksi oikean alkion
-     * @param index
-     * @param child
+     * @param index mikä solmu
+     * @param child lapsi
      */
     private void updateParentOfParent(int index, Node child) {
         if (index > 1) {
@@ -135,8 +154,8 @@ public class PriorityQueue {
 
     /**
      * Kutsuu TreeCheckiä, kun sille on tarvetta ja varmistaa että kutsut ovat oikeaan suuntaan
-     * @param index
-     * @param down
+     * @param index mille indeksille kutsutaan
+     * @param down mennäänkö alaspäin
      */
     private void recursiveTreeCheckCall(int index, boolean down) {
         if (down) {
@@ -154,12 +173,12 @@ public class PriorityQueue {
 
     /**
      * Varmistaa että vaihdossa vaihdetaan oikeanpuoleiseen solmuun
-     * @param parent
-     * @param leftnode
-     * @param rightnode
-     * @param child
-     * @param right
-     * @return
+     * @param parent vanhempi
+     * @param leftnode vasenlapsi
+     * @param rightnode oikealapsi
+     * @param child lapsi
+     * @param right oikea vai vasen
+     * @return solmu
      */
     private Node determineChildren(Node parent, Node leftnode, Node rightnode, Node child, boolean right) {
         if (right) {

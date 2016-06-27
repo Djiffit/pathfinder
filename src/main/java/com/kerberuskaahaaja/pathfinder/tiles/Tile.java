@@ -11,10 +11,13 @@ public abstract class Tile {
     private String toString;
     private boolean start;
     private boolean wall;
-
-
-
     private boolean goal;
+
+    /**
+     * Ruutu
+     * @param x x
+     * @param y y
+     */
 
     public Tile(int x, int y) {
         this.wall = false;
@@ -29,77 +32,126 @@ public abstract class Tile {
     }
 
 
-
+    /**
+     * Muuttaa seinästatuksen
+     */
     public void toggleWall() {
         this.wall = !this.wall;
     }
 
+    /**
+     * Onko kyseessä maali
+     * @return onko niin
+     */
     public boolean isGoal() {
         return goal;
     }
 
+    /**
+     * Asettaa ruudun maaliksi tai pois
+     * @param goal onko maali vai ei
+     */
     public void setGoal(boolean goal) {
         this.goal = goal;
     }
 
+    /**
+     * Onko tämä lähtöpiste
+     * @return onko lähtö
+     */
     public boolean isStart() {
         return start;
     }
 
+    /**
+     * Asettaa alkuruudun
+     * @param start onko
+     */
     public void setStart(boolean start) {
         this.start = start;
     }
 
+    /**
+     * Kertoo onko osa reittiä jolla ratkaistaan polku
+     * @return onko
+     */
     public boolean isPartOfPath() {
         return partOfPath;
     }
 
+    /**
+     * asettaa osaksi reittiä tai pois
+     * @param partOfPath onko osa reittiä
+     */
     public void setPartOfPath(boolean partOfPath) {
         this.partOfPath = partOfPath;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
+    /**
+     * Palauttaa onko kyseessä seinä
+     * @return onko tämä seinä
+     */
     public boolean isWall() {return this.wall;}
 
+    /**
+     * Mistä ruudustä tähän on tultu
+     * @return ruutu
+     */
     public Tile getCameFrom() {
         return cameFrom;
     }
 
+    /**
+     * Aseta mistä tultiin
+     * @param cameFrom ruutu
+     */
     public void setCameFrom(Tile cameFrom) {
         this.cameFrom = cameFrom;
     }
 
+    /**
+     * Alin hinta jolla ruutuun on päästy
+     * @return hinta
+     */
     public int getLowestCost() {
         return lowestCost;
     }
 
+    /**
+     * Aseta alin hinta
+     * @param lowestCost hinta
+     */
     public void setLowestCost(int lowestCost) {
         this.lowestCost = lowestCost;
     }
 
+    /**
+     * palauta ruudun x
+     * @return x
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * palauta ruudun y
+     * @return y
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * palauta ruudun arvo
+     * @return arvo
+     */
     public int getCost() {
         return this.cost;
     }
 
+    /**
+     * Resetoi ruudun data
+     */
     public void reset() {
         this.lowestCost = Integer.MAX_VALUE;
         this.cameFrom = null;

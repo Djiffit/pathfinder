@@ -35,7 +35,6 @@ public class BreadthFirstSearch {
         map.getCoordinates(startX, startY).setStart(true);
         map.getCoordinates(goalX, goalY).setGoal(true);
         time = System.currentTimeMillis();
-//        map.draw();
         Tile tile = map.getCoordinates(startX, startY);
         tile.setLowestCost(0);
         consideredTiles.enqueue(tile);
@@ -74,19 +73,17 @@ public class BreadthFirstSearch {
      */
 
     private void retracePath(Tile tile, Tile start) {
-//        map.draw();
         length = 0;
         while (tile != start) {
             length++;
             tile.setPartOfPath(true);
             tile = tile.getCameFrom();
         }
-//        map.draw();
     }
 
     public String toString() {
         System.out.println(Math.abs(time) + " " + length);
-        return time+" ms, length of path "+ length;
+        return time+" ms, length of path "+ length + " height: " + map.getHeight() + " width: " +map.getWidth();
     }
 
     /**

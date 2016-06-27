@@ -1,29 +1,18 @@
 package com.kerberuskaahaaja.pathfinder.tiles;
 
+/**
+ * Tavallinen ruutu
+ */
+
 public class NormalTile extends Tile {
 
+    /**
+     * Tavallinen ruutu
+     * @param x x koord
+     * @param y y koord
+     */
     public NormalTile(int x, int y) {
         super(x, y);
     }
 
-    public String toString() {
-        Tile tile = super.getCameFrom();
-        int x = super.getX();
-        int y = super.getY();
-        if (tile != null) {
-            if (super.isPartOfPath()) {
-              return "o";
-            } else if (tile.getX() < x ) {
-                return "<";
-            } else if (tile.getX() > x) {
-                return ">";
-            } else if (tile.getY() > y) {
-                return "v";
-            } else {
-                return "^";
-            }
-        } else {
-            return "x";
-        }
-    }
 }
