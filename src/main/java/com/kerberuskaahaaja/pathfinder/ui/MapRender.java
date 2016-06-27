@@ -15,7 +15,7 @@ public class MapRender extends JPanel {
 
 
     private Map map;
-    private int squareSize = 2;
+    private int squareSize = 0;
 
     /**
      * Aseta kartta

@@ -24,7 +24,7 @@ public class UserInterface implements Runnable {
      */
     @Override
     public void run() {
-        map = new Map(900, 300);
+        map = new Map(4500, 4500);
 
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
