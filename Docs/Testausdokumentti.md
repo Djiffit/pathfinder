@@ -9,3 +9,5 @@ Itse suorituskykytestaus suoritettiin luomalla erikokoisia neliönmuotoisia kart
 Testit voi toistaa avaamalla sovellus ja ajamalla algoritmejä erikokoisissa kartoissa, on kuitenkin huomattavaa että kannattaa tehdä itse piirretystä kartasta niin pieni että sitä ei näy, jotta tulokset eivät katoa ruudusta kun kartan koko kasvaa merkittävän suureksi.
 
 ![Kuvaaja tuloksista](https://github.com/Djiffit/pathfinder/blob/master/Docs/kuvaaja.png)
+
+Kaikki testit suoritettiin Intel Xeon E3-1230 v3 suorittimella.
