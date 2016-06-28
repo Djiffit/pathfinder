@@ -10,4 +10,4 @@ Testit voi toistaa avaamalla sovellus ja ajamalla algoritmejä erikokoisissa kar
 
 ![Kuvaaja tuloksista](https://github.com/Djiffit/pathfinder/blob/master/Docs/kuvaaja.png)
 
-Kaikki testit suoritettiin Intel Xeon E3-1230 v3 suorittimella.
+Kaikki testit suoritettiin Intel Xeon E3-1231 v3 suorittimella.
